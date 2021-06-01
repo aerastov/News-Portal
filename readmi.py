@@ -5,6 +5,8 @@
 >>> from main_app.models import *
 >>> u1 = User.objects.create_user(username='Alex')
 >>> u2 = User.objects.create_user(username='Alex2')
+>>> u1
+>>> u2
 >>> Author.objects.create(authorUser=u1)
 >>> Author.objects.create(authorUser=u2)
 
