@@ -16,12 +16,12 @@ class Author(models.Model):
         cRat = 0
         cRat += commentRat.get('commentRating')
 
-        self.ratingAuthor = pRat *3 + cRat
+        self.ratingAuthor = pRat * 3 + cRat
         self.save()
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=64, unique=True)
+    name = models.CharField(max_length=256, unique=True)
 
 
 class Post(models.Model):
@@ -35,7 +35,7 @@ class Post(models.Model):
     categoryType = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default=ARTICLE)
     dateCreation = models.DateTimeField(auto_now_add=True)
     postCategory = models.ManyToManyField(Category, through='PostCategory')
-    title = models.CharField(max_length=128)
+    title = models.CharField(max_length=256)
     text = models.TextField()
     rating = models.SmallIntegerField(default=0)
 
@@ -50,10 +50,6 @@ class Post(models.Model):
     def preview(self):
         # return self.text[128] + '...'
         return '{} ... {}'.format(self.text[0:128], str(self.rating))
-
-
-
-
 
 
 class PostCategory(models.Model):
@@ -76,6 +72,5 @@ class Comment(models.Model):
     def dislike(self):
         self.rating -= 1
         self.save()
-
 
 
