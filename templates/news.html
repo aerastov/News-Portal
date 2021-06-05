@@ -1,0 +1,33 @@
+<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
+{% extends 'flatpages/default.html' %}
+
+<!-- Название у нас будет proudcts -->
+{% block title %}
+News
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим все товары -->
+{% block content %}
+    <h1>Все статьи и новости:</h1>
+    <hr>
+    {% if news %}
+        {% for itemnews in news %}
+                    <span style="font-size: 20px;"><b>{{ itemnews.title }}</b></span></br>
+                    {% for key, value in itemnews.CATEGORY_CHOICES %}
+                        {% if key == itemnews.categoryType %}
+                            <span><b>{{value}}</b>,</span>
+                        {% endif %}
+                    {% endfor %}
+                    <!--  Добавляю только дату публикации, время в задании не указано добавлять  -->
+                    <span>дата публикации: {{ itemnews.dateCreation|date:'d M Y' }}, рейтинг: {{ itemnews.rating }}</span></br>
+                    <span>Категория: </span>
+                    {% for category in itemnews.postCategory.all %}
+                        <span>{{ category.name}} </span>
+                    {% endfor %}
+                    <!--  Сколько символов выводить??? на странице D3.3 написано вывести 20 слов, а на странице D3.4 написано вывести 20 символов  -->
+                    </br>{{ itemnews.text|truncatechars:50 }}</br></br>
+        {% endfor %}
+    {% else %}
+        <h2>Новостей нет!</h2>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends 'flatpages/default.html' %}
+
+<!-- Название у нас будет proudcts -->
+{% block title %}
+News
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим сам товар, ID которого было передано в адрес -->
+{% block content %}
+<h1>{{ news_item.title }}</h1>
+{{ news_item.text }}</br>
+Rating:
+{{ news_item.rating }}
+{% endblock content %}
