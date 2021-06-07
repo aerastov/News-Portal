@@ -16,7 +16,10 @@ News
     <hr>
     {% if news %}
         {% for itemnews in news %}
+
+            {% autoescape off %}
             <a href="{{ itemnews.id }}" style="font-size: 20px;"><b>{{ itemnews.title|censor }}</b></a></br>
+            {% endautoescape %}
             {% for key, value in itemnews.CATEGORY_CHOICES %}
                 {% if key == itemnews.categoryType %}
                     <span><b>{{value}}</b>,</span>
@@ -27,8 +30,10 @@ News
             {% for category in itemnews.postCategory.all %}
                 <span>{{ category.name}} </span>
             {% endfor %}
+            {% autoescape off %}
             </br>{{ itemnews.text|truncatechars:50|censor }}</br></br>
             <!--  </br>{{ itemnews.text|truncatewords:20 }}</br></br> -->
+            {% endautoescape %}
         {% endfor %}
             <span style ="color: grey;">P.S.</br>1. Добавлена только дата публикации (время в задании на странице (/news) не указано добавлять, формат по заданию: день.месяц.год)</br>
             2. Выведено 50 певых символов статьи (на странице D3.3 написано вывести 20 слов, а на странице D3.4 написано вывести 50 символов)</br>
@@ -37,16 +42,3 @@ News
         <h2>Новостей нет!</h2>
     {% endif %}
 {% endblock content %}
-
-<!--<!DOCTYPE html>-->
-<!--<html>-->
-<!-- <head>-->
-<!--  <meta charset="utf-8">-->
-<!--  <title>Цвет ссылок</title>-->
-<!--  <style>-->
-<!--   a {color: #0075B2; text-decoration: none;}-->
-<!--   a:visited {color: #8F8E8E; /* Цвет посещённой ссылки */} -->
-<!--   a:hover {color: #CE242B; /* Цвет ссылки при наведении */}-->
-<!--  </style>-->
-<!-- </head>-->
-<!-- <body>-->

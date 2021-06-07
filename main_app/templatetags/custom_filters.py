@@ -8,7 +8,7 @@ def censor(value):
     for a in censorwords:
         b = str(a + ",")
         с = str(b.title())
-        value = value.replace(a, "<CEN>")
+        value = value.replace(a, "&#129324;")
         value = value.replace(b, "<CEN>")
         value = value.replace(с, "<CEN>")
     return value

@@ -11,10 +11,10 @@ News
    a:visited {color: black /* Цвет посещенной ссылки */}
    a:hover {color: blue; /* Цвет ссылки при наведении */}
   </style>
+    {% autoescape off %}
     <h2>{{ news_item.title|censor }}</h2>
-
-    <span>{{ news_item.text|censor }}</br></span>
-
+        <span>{{ news_item.text|censor }}</br></span>
+    {% endautoescape %}
     <hr>
         {% for key, value in news_item.CATEGORY_CHOICES %}
             {% if key == news_item.categoryType %}
@@ -31,6 +31,7 @@ News
             <h4 style="text-align: left">Все новости <<</h4>
         </a>
         <span style ="color: grey;">P.S.</br>Тут добавлены дата и время публикации. Формат по заданию: ДЕНЬ-МЕСЯЦ-ГОД ЧАС:МИНУТЫ</br></span>
+
 {% endblock content %}
 
 
