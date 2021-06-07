@@ -9,6 +9,6 @@ def censor(value):
         b = str(a + ",")
         с = str(b.title())
         value = value.replace(a, "&#129324;")
-        value = value.replace(b, "<CEN>")
-        value = value.replace(с, "<CEN>")
+        value = value.replace(b, "&#129324;")
+        value = value.replace(с, "&#129324;")
     return value
