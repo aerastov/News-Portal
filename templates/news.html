@@ -1,33 +1,52 @@
-<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
 {% extends 'flatpages/default.html' %}
+{% load custom_filters %}
 
-<!-- Название у нас будет proudcts -->
 {% block title %}
 News
 {% endblock title %}
 
-<!-- В контенте на странице мы выводим все товары -->
 {% block content %}
+  <style>
+   a {color: black; text-decoration: none;}
+   a:visited {color: black /* Цвет посещенной ссылки */}
+   a:hover {color: blue; /* Цвет ссылки при наведении */}
+  </style>
     <h1>Все статьи и новости:</h1>
+    <span style ="color: grey;">Всего: {{ news|length }} публикаций</span>
     <hr>
     {% if news %}
         {% for itemnews in news %}
-                    <span style="font-size: 20px;"><b>{{ itemnews.title }}</b></span></br>
-                    {% for key, value in itemnews.CATEGORY_CHOICES %}
-                        {% if key == itemnews.categoryType %}
-                            <span><b>{{value}}</b>,</span>
-                        {% endif %}
-                    {% endfor %}
-                    <!--  Добавляю только дату публикации, время в задании не указано добавлять  -->
-                    <span>дата публикации: {{ itemnews.dateCreation|date:'d M Y' }}, рейтинг: {{ itemnews.rating }}</span></br>
-                    <span>Категория: </span>
-                    {% for category in itemnews.postCategory.all %}
-                        <span>{{ category.name}} </span>
-                    {% endfor %}
-                    <!--  Сколько символов выводить??? на странице D3.3 написано вывести 20 слов, а на странице D3.4 написано вывести 20 символов  -->
-                    </br>{{ itemnews.text|truncatechars:50 }}</br></br>
+            <a href="{{ itemnews.id }}" style="font-size: 20px;"><b>{{ itemnews.title|censor }}</b></a></br>
+            {% for key, value in itemnews.CATEGORY_CHOICES %}
+                {% if key == itemnews.categoryType %}
+                    <span><b>{{value}}</b>,</span>
+                {% endif %}
+            {% endfor %}
+            <span>дата публикации: {{ itemnews.dateCreation|date:'d.M.Y' }}, рейтинг: {{ itemnews.rating }} ({{ itemnews.author }})</span></br>
+            <span>Категория: </span>
+            {% for category in itemnews.postCategory.all %}
+                <span>{{ category.name}} </span>
+            {% endfor %}
+            </br>{{ itemnews.text|truncatechars:50|censor }}</br></br>
+            <!--  </br>{{ itemnews.text|truncatewords:20 }}</br></br> -->
         {% endfor %}
+            <span style ="color: grey;">P.S.</br>1. Добавлена только дата публикации (время в задании на странице (/news) не указано добавлять, формат по заданию: день.месяц.год)</br>
+            2. Выведено 50 певых символов статьи (на странице D3.3 написано вывести 20 слов, а на странице D3.4 написано вывести 50 символов)</br>
+            &emsp;В шаблоне закомментирована строка вывода 20 первых слов (если нужно именно так)</span>
     {% else %}
         <h2>Новостей нет!</h2>
     {% endif %}
 {% endblock content %}
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!-- <head>-->
+<!--  <meta charset="utf-8">-->
+<!--  <title>Цвет ссылок</title>-->
+<!--  <style>-->
+<!--   a {color: #0075B2; text-decoration: none;}-->
+<!--   a:visited {color: #8F8E8E; /* Цвет посещённой ссылки */} -->
+<!--   a:hover {color: #CE242B; /* Цвет ссылки при наведении */}-->
+<!--  </style>-->
+<!-- </head>-->
+<!-- <body>-->
